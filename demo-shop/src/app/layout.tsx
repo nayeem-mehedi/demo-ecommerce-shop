@@ -1,4 +1,5 @@
 import { Inter } from "next/font/google";
+import SessionProvider from "../components/SessionProvider";
 import "./globals.css";
 import Navbar from "./Navbar/Navbar";
 import Footer from "./Footer/Footer";
@@ -17,13 +18,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="main_body">
-          <Navbar />
-          <main className="main_body m-auto max-h-full min-w-[300px] max-w-full p-4">
-            {children}
-          </main>
-          <Footer />
-        </div>
+        <SessionProvider>
+          <div className="main_body">
+            <Navbar />
+            <main className="main_body m-auto max-h-full min-w-[300px] max-w-full p-4">
+              {children}
+            </main>
+            <Footer />
+          </div>
+        </SessionProvider>
       </body>
     </html>
   );

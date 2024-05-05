@@ -4,20 +4,23 @@ import Image from "next/image";
 import { redirect } from "next/navigation";
 import { getCart } from "@/lib/db/cart";
 import ShoppingCartButton from "./ShoppingCartButton";
+import UserMenuButton from "./UserMenuButton";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]/route";
 
 async function searchProducts(formData: FormData) {
-    "use sever";
+  "use server";
 
-    const searchQuery = formData.get("searchQuery")?.toString();
+  const searchQuery = formData.get("searchQuery")?.toString();
 
-    if(searchQuery) {
-        redirect("/search?query=" + searchQuery);
-    }
+  if (searchQuery) {
+    redirect("/search?query=" + searchQuery);
+  }
 }
 
 export default async function Navbar() {
-    const cart = await getCart();
-
+  const session = await getServerSession(authOptions);
+  const cart = await getCart();
 
   return (
     <div className="main_header">
@@ -29,7 +32,7 @@ export default async function Navbar() {
           </Link>
         </div>
         <div className="flex-none gap-2">
-          <form>
+          <form action={searchProducts}>
             <div className="form-control">
               <input
                 name="searchQuery"
@@ -39,7 +42,8 @@ export default async function Navbar() {
             </div>
           </form>
         </div>
-        <ShoppingCartButton cart={cart}/>
+        <ShoppingCartButton cart={cart} />
+        <UserMenuButton session={session} />
       </div>
     </div>
   );
