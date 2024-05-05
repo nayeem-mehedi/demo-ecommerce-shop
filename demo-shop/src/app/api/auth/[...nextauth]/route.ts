@@ -1,34 +1,7 @@
-import { mergeAnonymousCartIntoUserCart } from "@/lib/db/cart";
-import { prisma } from "@/lib/db/prisma";
-import { env } from "@/lib/env";
-import { PrismaAdapter } from "@auth/prisma-adapter";
-import { NextAuthOptions } from "next-auth";
-import { Adapter } from "next-auth/adapters";
+import { authOptions } from "@/lib/authOptions";
 import NextAuth from "next-auth/next";
-import GoogleProvider from "next-auth/providers/google"
 
-
-export const authOptions: NextAuthOptions = {
-    adapter: PrismaAdapter(prisma) as Adapter,
-    providers: [
-        GoogleProvider({
-            clientId: env.GOOGLE_CLIENT_ID,
-            clientSecret: env.GOOGLE_CLIENT_SECRET,
-        })
-    ],
-    callbacks: {
-        session({session, user}) {
-            session.user.id = user.id;
-            return session;
-        },
-    },
-    events: {
-        async signIn({user}) {
-            await mergeAnonymousCartIntoUserCart(user.id);
-        }
-    }
-}
-
+// https://stackoverflow.com/questions/76388994/next-js-13-4-and-nextauth-type-error-authoptions-is-not-assignable-to-type-n
 const handler = NextAuth(authOptions);
 
-export {handler as GET, handler as POST}
+export { handler as GET, handler as POST };
