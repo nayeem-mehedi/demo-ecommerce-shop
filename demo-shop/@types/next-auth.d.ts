@@ -4,7 +4,7 @@ declare module "next-auth" {
     interface Session {
         user: {
             id: string,
-            //TODO can add role also???
+            //TODO: can add role also???
         } & DefaultSession["user"]
     } 
 }
