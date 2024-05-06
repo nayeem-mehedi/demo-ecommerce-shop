@@ -32,7 +32,7 @@ export async function generateMetadata(
     const product = await getProduct(id);
 
     return {
-        title: product.name + " - Digital Depot ",
+        title: product.name + " - Digital Depot",
         description: product.description,
         openGraph: {
             images: [{url: product.imageUrl}], // can add more images

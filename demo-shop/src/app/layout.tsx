@@ -21,7 +21,7 @@ export default function RootLayout({
         <SessionProvider>
           <div className="main_body">
             <Navbar />
-            <main className="main_body m-auto max-h-full min-w-[300px] max-w-full p-4">
+            <main className="main_body m-auto min-h-[80vh] max-h-full min-w-[300px] max-w-full p-4">
               {children}
             </main>
             <Footer />

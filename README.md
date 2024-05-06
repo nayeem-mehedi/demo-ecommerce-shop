@@ -4,4 +4,4 @@ Digital Depot is an ecommerce website built using Next.js, Prisma, Tailwind CSS 
 
 Utilizes Server Actions within Next.js for streamlined form submissions and data mutations.
 
-AUthentication is done using Auth.js (NextAuth)
+Authentication is done using Auth.js (NextAuth)
